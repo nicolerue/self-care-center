@@ -27,16 +27,16 @@ clearBtn.addEventListener("click", clearMessage);
 function clearMessage() {
   messageDisplay.innerText = "";
   clearBtn.classList.add("hidden");
+  medIcon.classList.remove("hidden");
 }
 
 function getMessage() {
   var randNumMantras = getRandomIndex(mantrasArr);
   var randNumAffirmations = getRandomIndex(affirmationsArr);
   clearBtn.classList.remove("hidden");
+  medIcon.classList.add("hidden");
   if (messageDisplay.classList.contains("hidden")) {
     messageDisplay.classList.remove("hidden");
-    medIcon.classList.add("hidden");
-    clearBtn.classList.remove("hidden");
   }
   if (mantraRadio.checked == true) {
     for (var i = 0; i < mantrasArr.length; i++) {

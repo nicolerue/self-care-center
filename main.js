@@ -44,6 +44,7 @@ var goHome = document.querySelector(".go-home");
 var page0Login = document.querySelector(".PAGE0-LOGIN");
 var page1Home = document.querySelector(".PAGE1-HOME");
 var page2Faves = document.querySelector(".PAGE2-FAVES");
+// click x
 //EVENT LISTENERS
 messageBtn.addEventListener("click", getMessage);
 clearBtn.addEventListener("click", clearMessage);
@@ -54,6 +55,7 @@ loginBtn.addEventListener("click", login);
 signOut.addEventListener("click", signOutFunc);
 viewFaves.addEventListener("click", viewFaveClick);
 goHome.addEventListener("click", goHomePage);
+faveDisplay.addEventListener("click", deleteFaveMsg);
 
 //FUNCTIONS
 function goHomePage() {
@@ -91,16 +93,43 @@ function login(event) {
 
 function favoriteMessage() {
   heartIcon.classList.add("fill-red");
-  favesArr.push(messageDisplay.innerText);
-  var newFavesHtml = "";
+  var randomNum = Date.now();
+  var faveObj = {
+    message: messageDisplay.innerText,
+    id: randomNum,
+  };
+  favesArr.push(faveObj);
+  const h2 = document.createElement("h2");
+  h2.textContent = faveObj.message;
+  h2.id = randomNum;
+  faveDisplay.appendChild(h2);
+
+  const deleteX = document.createElement("deleteX");
+  deleteX.textContent = "X";
+  deleteX.classList.add("delete-fave");
+  deleteX.id = randomNum;
+  h2.appendChild(deleteX);
+}
+
+function deleteFaveMsg(e) {
+  faveDisplay.innerHTML = "";
   for (var i = 0; i < favesArr.length; i++) {
-    newFavesHtml += `<h2>${favesArr[i]}<span class="delete-fave"></span></h2>`;
+    if (e.target.id == favesArr[i].id) {
+      console.log(favesArr[i].id);
+      favesArr.splice(i, 1);
+    }
   }
-  faveDisplay.innerHTML = newFavesHtml;
-  var deleteFaveX = document.querySelector(".delete-fave");
-  deleteFaveX.addEventListener("click", deleteFaveMsg);
-  function deleteFaveMsg(e) {
-    console.log(e.target);
+  for (var i = 0; i < favesArr.length; i++) {
+    const h2 = document.createElement("h2");
+    h2.textContent = favesArr[i].message;
+    h2.id = favesArr[i].id;
+    faveDisplay.appendChild(h2);
+
+    const deleteX = document.createElement("deleteX");
+    deleteX.textContent = "X";
+    deleteX.classList.add("delete-fave");
+    deleteX.id = favesArr[i].id;
+    h2.appendChild(deleteX);
   }
 }
 
@@ -157,14 +186,11 @@ function getMessage() {
   if (messageDisplay.classList.contains("hidden")) {
     messageDisplay.classList.remove("hidden");
   }
-  if (mantraRadio.checked == true) {
+  if (mantraRadio.checked) {
     messageDisplay.innerText = mantrasArr[randNumMantras];
-  } else if (affirmationRadio.checked == true) {
+  } else if (affirmationRadio.checked) {
     messageDisplay.innerText = affirmationsArr[randNumAffirmations];
-  } else if (
-    affirmationRadio.checked == false &&
-    mantraRadio.checked == false
-  ) {
+  } else if (!affirmationRadio.checked && !mantraRadio.checked) {
     messageDisplay.classList.add("hidden");
     medIcon.classList.remove("hidden");
     clearBtn.classList.add("hidden");

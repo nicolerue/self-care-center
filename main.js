@@ -3,48 +3,28 @@
 var messageBtn = document.querySelector(".recieve-message-btn");
 var affirmationRadio = document.getElementById("affirmation");
 var mantraRadio = document.getElementById("mantra");
-//meditation icon
 var medIcon = document.querySelector(".meditation-icon");
-//message
 var messageDisplay = document.querySelector(".message-text");
-//hidden btn
 var clearBtn = document.querySelector(".clear-btn");
-//add my own message btn
 var addMyMessage = document.querySelector(".add-message-btn");
-//personalized form
 var addMessageForm = document.querySelector(".add-message-form");
-//submit my message button
 var submitMessageBtn = document.querySelector(".submit-msg-btn");
-//select dropdown
 var messageCategory = document.getElementById("message-category");
-//message input field
 var messageInput = document.getElementById("message-input");
-//heart icon
 var heartIcon = document.querySelector(".heart-icon");
-//fave display
 var faveDisplay = document.querySelector(".fave-display");
-//delete fave x
 var deleteFaveX = document.querySelector(".delete-fave");
-//login-btn
 var loginBtn = document.querySelector(".login-sign-in");
-//login-name-value:
 var nameInput = document.querySelector(".login-input");
-//welcome message
 var welcomeMsg = document.querySelector(".welcome");
-// names favourites:
 var namesFave = document.querySelector(".names-favorites");
-// view favourites:
 var viewFaves = document.querySelector(".view-favorites");
-// signout
 var signOut = document.querySelector(".sign-out");
-//go home
 var goHome = document.querySelector(".go-home");
-
-//pages
 var page0Login = document.querySelector(".PAGE0-LOGIN");
 var page1Home = document.querySelector(".PAGE1-HOME");
 var page2Faves = document.querySelector(".PAGE2-FAVES");
-// click x
+
 //EVENT LISTENERS
 messageBtn.addEventListener("click", getMessage);
 clearBtn.addEventListener("click", clearMessage);
@@ -58,21 +38,30 @@ goHome.addEventListener("click", goHomePage);
 faveDisplay.addEventListener("click", deleteFaveMsg);
 
 //FUNCTIONS
+
+function hide(element) {
+  element.classList.add("hidden");
+}
+
+function unhide(element) {
+  element.classList.remove("hidden");
+}
+
 function goHomePage() {
-  page0Login.classList.add("hidden");
-  page1Home.classList.remove("hidden");
-  page2Faves.classList.add("hidden");
+  hide(page0Login);
+  hide(page2Faves);
+  unhide(page1Home);
 }
 
 function viewFaveClick() {
-  page0Login.classList.add("hidden");
-  page1Home.classList.add("hidden");
-  page2Faves.classList.remove("hidden");
+  hide(page0Login);
+  hide(page1Home);
+  unhide(page2Faves);
 }
 function signOutFunc() {
-  page0Login.classList.remove("hidden");
-  page1Home.classList.add("hidden");
-  page2Faves.classList.add("hidden");
+  hide(page1Home);
+  hide(page2Faves);
+  unhide(page0Login);
   location.reload();
 }
 
@@ -85,9 +74,9 @@ function login(event) {
     welcomeMsg.innerText = `Welcome ${nameInput.value}!`;
     namesFave.innerText = `✨${nameInput.value}'s Favourite Messages✨`;
     nameInput.value = "";
-    page0Login.classList.add("hidden");
-    page1Home.classList.remove("hidden");
-    page2Faves.classList.add("hidden");
+    hide(page0Login);
+    hide(page2Faves);
+    unhide(page1Home);
   }
 }
 
@@ -178,18 +167,46 @@ function clearMessage() {
 
 function getMessage() {
   heartIcon.classList.remove("fill-red");
-  var randNumMantras = getRandomIndex(mantrasArr);
-  var randNumAffirmations = getRandomIndex(affirmationsArr);
   heartIcon.classList.remove("hidden");
   medIcon.classList.add("hidden");
   clearBtn.classList.remove("hidden");
   if (messageDisplay.classList.contains("hidden")) {
     messageDisplay.classList.remove("hidden");
   }
-  if (mantraRadio.checked) {
+
+  function checkArrLength(arr) {
+    if (arr.length === 0) {
+      messageDisplay.innerText =
+        "You've read all the messages for the day :) You can refresh the page to see them again or add your own!";
+    }
+  }
+  checkArrLength(mantrasArr);
+  checkArrLength(affirmationsArr);
+
+  function checkReadMantras(originalArr, readArr) {
+    for (let i = 0; i < originalArr.length; i++) {
+      for (let j = 0; j < readArr.length; j++) {
+        if (originalArr[i] === readArr[j]) {
+          originalArr.splice(i, 1);
+        }
+      }
+    }
+  }
+  checkReadMantras(mantrasArr, mantrasArrRead);
+  checkReadMantras(affirmationsArr, affirmationsArrRead);
+  function getRandomIndex(array) {
+    return Math.floor(Math.random() * array.length);
+  }
+
+  var randNumMantras = getRandomIndex(mantrasArr);
+  var randNumAffirmations = getRandomIndex(affirmationsArr);
+
+  if (mantraRadio.checked && mantrasArr.length > 0) {
     messageDisplay.innerText = mantrasArr[randNumMantras];
-  } else if (affirmationRadio.checked) {
+    mantrasArrRead.push(messageDisplay.innerText);
+  } else if (affirmationRadio.checked && affirmationsArr.length > 0) {
     messageDisplay.innerText = affirmationsArr[randNumAffirmations];
+    affirmationsArrRead.push(messageDisplay.innerText);
   } else if (!affirmationRadio.checked && !mantraRadio.checked) {
     messageDisplay.classList.add("hidden");
     medIcon.classList.remove("hidden");
@@ -197,8 +214,4 @@ function getMessage() {
     heartIcon.classList.add("hidden");
     alert("Please select which type of message you would like to recieve :)");
   }
-}
-
-function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
 }

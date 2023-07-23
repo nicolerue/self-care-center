@@ -1,0 +1,47 @@
+/**************************/
+/* BELOW 1344px (smaller desktops) (1350/16, rounded) */
+/**************************/
+
+@media (max-width: 553px) {
+  .display-message {
+    width: 30rem;
+  }
+  .heart-icon {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .heart-icon:hover {
+    width: 3rem;
+    height: 3rem;
+  }
+  .welcome {
+    font-size: 1.4rem;
+  }
+  .sign-out {
+    font-size: 1.4rem;
+  }
+  .view-favorites {
+    font-size: 1.4rem;
+  }
+
+  .nav-bar {
+    margin: 0;
+    padding: 0;
+  }
+
+  .radio-form-btn {
+    max-width: 25rem;
+    margin: 0rem;
+  }
+
+  .radio-form {
+    max-width: 25rem;
+  }
+  .choose-message {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* 1350/16 */

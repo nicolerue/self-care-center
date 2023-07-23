@@ -91,10 +91,10 @@ html {
 .PAGE1-HOME {
   font-family: "quicksand";
   background: linear-gradient(#134d71, #78a7c6, #f7e4bf);
-  padding: 1rem 5rem 15rem 15rem;
+  padding: 1rem 5rem 1rem 5rem;
   color: #ffffff;
   height: 100vh;
-  width: 100vw;
+  max-width: 100%;
 }
 
 .home-page {
@@ -129,7 +129,9 @@ h2 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  max-width: 50rem;
   gap: 2rem;
+  margin: 0rem 5rem;
 }
 
 .radio-form-btn {
@@ -139,6 +141,8 @@ h2 {
   flex-direction: column;
   padding: 1rem 5rem;
   border-radius: 1rem;
+  margin: 0rem 5rem;
+  max-width: 50rem;
 }
 
 .radio-form {
@@ -176,6 +180,7 @@ span {
   border-radius: 1rem;
   width: 50rem;
   padding: 2.5rem;
+  margin: 0rem 5rem;
 }
 
 .meditation-icon {
@@ -297,10 +302,10 @@ span {
 .PAGE0-LOGIN {
   font-family: "quicksand";
   background: linear-gradient(#134d71, #78a7c6, #f7e4bf);
-  padding: 1rem 5rem 15rem 15rem;
+  padding: 1rem 5rem 1rem 5rem;
   color: #ffffff;
   height: 100vh;
-  width: 100vw;
+  max-width: 100%;
 }
 
 .login-form {
@@ -356,10 +361,10 @@ span {
 .PAGE2-FAVES {
   font-family: "quicksand";
   background: linear-gradient(#134d71, #78a7c6, #f7e4bf);
-  padding: 1rem 5rem 15rem 15rem;
+  padding: 1rem 5rem 1rem 5rem;
   color: #ffffff;
   height: 100vh;
-  width: 100vw;
+  max-width: 100%;
 }
 
 .fill-red {

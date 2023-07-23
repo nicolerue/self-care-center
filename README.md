@@ -9,6 +9,7 @@
   - Adding your own messages that can be saved as well.
   - Compatible viewing on a desktop, laptop, tablet, or phone.
   - Deleting messages from the "View My Favorites" page by clicking the red ❌ next to the message.
+  - No repeating messages. 
 
 ### Installation Instructions:
 [//]: <> (What steps does a person have to take to get your app cloned down and running?)
